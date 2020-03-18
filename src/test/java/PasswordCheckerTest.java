@@ -44,5 +44,11 @@ public class PasswordCheckerTest {
         assertEquals(true,
                 PasswordChecker.passwordIsOk("asdfghjkJ9!"));
     }
+
+    @Test
+    public  void passwordIsNeverOk() {
+        assertEquals(true,
+                PasswordChecker.passwordIsOk("s34323EW"));
+    }
 }
 
