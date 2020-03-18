@@ -38,17 +38,33 @@ public class PasswordChecker {
             }
             return msg ;
         }
-        public static  boolean passwordIsOk(String password){
+    public static  boolean passwordIsOk(String password){
                  boolean check;
-            if(!password.isEmpty() && password.length() >= 8 && password.matches((".*[A-Z].*")) ){
-                System.out.println("Password is Ok!");
-                check =true;
+            if(!password.isEmpty() && password.length() >= 8 &&
+                    password.matches((".*[A-Z].*")) ||
+                    password.matches((".*[a-z].*")) || !password.matches((".*[\\d].*")) ||
+                    password.matches((".*[-!@#$%^&*(){}_\"\"';|?/.>,<:].*"))){
+                    System.out.println("Password is ok!");
+                    check =true;
             } else{
                 System.out.println("password is not ok,");
                 check = false;
             }
             return check;
         }
+
+    public static boolean passwordIsNeverOk(String password) {
+        if (password.length() < 8)
+        {
+            if (password.isEmpty())
+            {
+                System.out.println("empty passwords are invalid");
+            }
+            System.out.println("Password must be 8 characters long!");
+        }
+
+        return true;
+    }
         public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
             System.out.println("(Please Note: Your password shouldn't be empty," +
@@ -57,10 +73,12 @@ public class PasswordChecker {
                     "\n and at least one digit & a special character.)");
             System.out.println("");
             System.out.println("Please enter your password");
+
             String userPassword = input.nextLine();
             try {
                  System.out.println(password_is_valid(userPassword));
                  System.out.println(passwordIsOk(userPassword));
+                 System.out.println(passwordIsNeverOk(userPassword));
              }
             catch (Exception e){
                 System.out.println(e.getMessage());
