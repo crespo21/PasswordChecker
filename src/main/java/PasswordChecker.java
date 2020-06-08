@@ -1,82 +1,159 @@
 import java.util.Scanner;
-
+//The  PasswordChecker class compiles methods
+// which checks if the password entered is valid, if is ok and if is never ok.
 public class PasswordChecker {
-        static boolean passwordExist = true;
-        static boolean passwordCharLength = true;
-        static boolean passwordLowerCase = true;
-        static boolean passwordUpperCase = true;
-        static boolean passwordOneDigit = true;
-        static boolean passwordOneSpecialChar = true;
-    public static String password_is_valid(String password) {
-            String msg = "";
-            if (password.isEmpty()) {
+
+       //A conditional method that requires the password to always exist
+       static boolean passwordExist = true;
+       //A conditional method that checks if the
+       //password is always specified and meets required length
+       static boolean passwordCharLength = true;
+       //A conditional method that checks if the
+       //password always matches a lower case letter
+       static boolean passwordLowerCase = true;
+       //A static conditional method that checks if the
+       //password always matches an upper case letter
+       static boolean passwordUpperCase = true;
+       //A static conditional method that checks if the
+       //password always matches a  digit
+       static boolean passwordOneDigit = true;
+       //A static conditional method that checks if the
+       //password always matches a Special character
+       static boolean passwordOneSpecialChar = true;
+
+    // The method passwordIsValid checks if password is empty,
+    // if is less than 8 characters, if it matches Uppercase
+    // and lowercase letters,if password matches at least one digit and
+    // at least one special character. If not then each conditional
+    // statement returns a string treated like an error message.
+    // passwordIsValid method returns the parameter of type String 'password'.
+    public static String passwordIsValid(String password) {
+
+        //if password is empty,type boolean passwordExist is false,
+        //returns a string message "password should exist"
+        if (password.isEmpty()){
                 passwordExist = false;
-                msg = "password should exist";
-            }
-            else if (password.length() < 8 ){
+                return ("password should exist");
+        }
+
+        //if password length is less than 8 characters,
+        // type boolean passwordCharLength is false,
+        //returns a string message like it's an error
+        if (password.length() < 8){
                  passwordCharLength = false;
-                msg = "password should be longer than 8 characters";
-            }
-            else if (!password.matches((".*[A-Z].*"))){
+                return("password should be longer than 8 characters");
+        }
+
+        //if password does not match Upper case letter
+        // type boolean passwordUpperCase is false,
+        //returns a string message like it's an error
+        if (!password.matches((".*[A-Z].*"))){
                  passwordUpperCase = true;
-                msg="password should have at least one uppercase letter";
-            }
-            else if (!password.matches((".*[a-z].*"))){
+                 return ("password should have at least one uppercase letter");
+        }
+
+        //if password does not match Upper case letter
+        //type boolean passwordLowerCase is false,
+        //returns a string message like it's an error
+        if (!password.matches((".*[a-z].*"))){
                 passwordLowerCase = false;
-                msg="password should have at least one lowercase letter";
-            }
-            else if (!password.matches((".*[\\d].*"))){
+                 return "password should have at least one lowercase letter";
+        }
+
+        //if password does not match a digit
+        //type boolean passwordOneDigit is false,
+        //returns a string message like it's an error
+        if (!password.matches((".*[\\d].*"))){
                  passwordOneDigit = false;
-                msg="password should have at least one digit";
-            }
-            else if (!password.matches((".*[-!@#$%^&*(){}_\"\"';|?/.>,<:].*"))){
+                 return ("password should have at least one digit");
+        }
+
+        //if password does not match a special character
+        // type boolean passwordOneSpecialChar is false,
+        //returns a string message like it's an error
+        if (!password.matches((".*[-!@#$%^&*(){}_\"'\\\\;|?/.>,<:].*"))){
                 passwordOneSpecialChar = false;
-                msg="password should have at least one special character";
+                return ("password should have at least one special character");
+        }
+
+        //passwordIsValid returns type String 'password'.
+        return password;
+    }
+
+    //passwordIsOk method checks if the given password meets
+    //at least three of the conditions or not,
+    //password length and password existence being default conditions.
+    //The method returns a conditional  feedback
+    //called 'passwordIsOkChecker' stating whether
+    //passwordIsOk is true or false
+    //from the given password.
+    public static  boolean passwordIsOk(String password){
+
+        //Declaring a variable to check whether the password is ok or not ok.
+        boolean passwordIsOkChecker;
+
+            //checks if the password does not meet at least three of the conditions,
+            // if so the variable 'passwordIsOkChecker' is false,
+            //else the variable 'passwordIsOkChecker' is true
+            //and print out a message to the console stating the condition based on password given,
+            if(password.length() < 8 && password.isEmpty() &&!password.matches((".*[A-Z].*")) ||
+                    !password.matches((".*[a-z].*")) || !password.matches((".*[\\d].*")) ||
+                    !password.matches((".*[-!@#$%^&*(){}_\"'\\\\;|?/.>,<:].*"))){
+                passwordIsOkChecker = false;
+                System.out.println("Password not ok!");
             }
             else{
-                msg="Password is valid!";
+                passwordIsOkChecker = true;
+                System.out.println("password is ok!");
             }
-            return msg ;
-        }
-    public static  boolean passwordIsOk(String password){
-                 boolean check;
-            if(!password.isEmpty() && password.length() >= 8 &&
-                    password.matches((".*[A-Z].*")) ||
-                    password.matches((".*[a-z].*")) || !password.matches((".*[\\d].*")) ||
-                    password.matches((".*[-!@#$%^&*(){}_\"\"';|?/.>,<:].*"))){
-                    System.out.println("Password is ok!");
-                    check =true;
-            } else{
-                System.out.println("password is not ok,");
-                check = false;
-            }
-            return check;
+        return passwordIsOkChecker;
         }
 
+    //passwordIsNeverOk method checks with a nested 'if  condition whether
+    //the given password is not greater or equal 8, and if the password is empty,
+    //if this conditions are met, return false,
+    //print a relevant message on the console
+    //else return true
     public static boolean passwordIsNeverOk(String password) {
-        if (password.length() < 8)
-        {
-            if (password.isEmpty())
-            {
-                System.out.println("empty passwords are invalid");
+
+        //if password is not greater or equal 8,if password is empty
+        //print  relevant message for each condition
+        //then return false, else return true
+        if (!(password.length() >= 8)) {
+            if (password.isEmpty()) {
+                System.out.println("Empty passwords are invalid!");
             }
             System.out.println("Password must be 8 characters long!");
+            return false;
         }
-
-        return true;
+        else {
+            return true;
+        }
     }
+
         public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-            System.out.println("(Please Note: Your password shouldn't be empty," +
-                    "\n must be longer than 8 characters," +
-                    "\n contains at least one Uppercase & lowercase letter," +
-                    "\n and at least one digit & a special character.)");
-            System.out.println("");
+        //Password instructions
+            System.out.println("Please note that your password: " +
+                    "\n " + "1. Shouldn't be empty." +
+                    "\n 2. Must be longer than 8 characters." +
+                    "\n 3. Must contain at least one UPPERCASE & lowercase letter." +
+                    "\n 4. Should have At least one digit." +
+                    "\n 5. Should have  A special character.");
+
+            System.out.println(" ");
+            //instantiating a Scanner object that allows user input from  the console
+            Scanner input = new Scanner(System.in);
+            //Call To Action
             System.out.println("Please enter your password");
 
+            //A string object that stores input from the user
             String userPassword = input.nextLine();
+
+            //catching all  errors faced when printing out on the console
+            // passwordIsValid, passwordIsOk,
+            // and passwordIsNeverOk methods taking userPassword as a input
             try {
-                 System.out.println(password_is_valid(userPassword));
+                 System.out.println(passwordIsValid(userPassword));
                  System.out.println(passwordIsOk(userPassword));
                  System.out.println(passwordIsNeverOk(userPassword));
              }
